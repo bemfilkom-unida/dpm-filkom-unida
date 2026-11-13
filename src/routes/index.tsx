@@ -2,6 +2,9 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState, useEffect, useRef } from 'react'
 import Nav from '../components/Nav'
 import SiteFooter from '../components/SiteFooter'
+import { Parallax } from '../components/ScrollEffects'
+import { DiaTextReveal } from '../components/ui/dia-text-reveal'
+import { pageHead } from '../lib/seo'
 
 const events = [
   { date: '26/27', name: 'Musyawarah Kerja' },
@@ -36,7 +39,7 @@ const CODE_LINES = [
   { text: 'GET /api/v1/aspirasi', className: 'text-[#f0f0f0]' },
   { text: '200 OK · 128 entri', className: 'text-[#E78E3F]' },
   { text: '', className: 'text-[#d4d4d4]' },
-  { text: 'ID · TOPIK · STATUS', className: 'text-[#6b7a80]' },
+  { text: 'ID · TOPIK · STATUS', className: 'text-[#4a5a60]' },
   { text: 'A-012 · Kebijakan · selesai', className: 'text-[#d4d4d4]' },
   { text: 'A-013 · Fasilitas · diproses', className: 'text-[#d4d4d4]' },
   { text: 'A-014 · Kurikulum · baru', className: 'text-[#d4d4d4]' },
@@ -45,6 +48,67 @@ const CODE_TOTAL = CODE_LINES.reduce((a, l) => a + l.text.length, 0)
 const CODE_OFFSETS = CODE_LINES.map((_, i) =>
   CODE_LINES.slice(0, i).reduce((a, l) => a + l.text.length, 0),
 )
+
+const stats = [
+  { value: 200, suffix: '+', label: 'Mahasiswa aktif' },
+  { value: 3, suffix: '', label: 'Aspirasi ditangani' },
+  { value: 10, suffix: '', label: 'Kegiatan per tahun' },
+  { value: 80, suffix: '%', label: 'Tindak lanjut' },
+]
+
+function StatCounter({
+  value,
+  suffix,
+  label,
+  className = '',
+}: {
+  value: number
+  suffix: string
+  label: string
+  className?: string
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [display, setDisplay] = useState(0)
+  const started = useRef(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || started.current) return
+          started.current = true
+          io.unobserve(el)
+          const duration = 1600
+          const startTime = performance.now()
+          const tick = (now: number) => {
+            const p = Math.min((now - startTime) / duration, 1)
+            const eased = 1 - Math.pow(1 - p, 3)
+            setDisplay(Math.round(eased * value))
+            if (p < 1) requestAnimationFrame(tick)
+          }
+          requestAnimationFrame(tick)
+        })
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [value])
+
+  return (
+    <div ref={ref} className={`flex flex-col gap-[6px] ${className}`}>
+      <span className="text-[28px] font-medium leading-none tracking-[-1px] text-[#164653] tabular-nums md:text-[40px] md:tracking-[-1.4px]">
+        {display}
+        {suffix}
+      </span>
+      <span className="font-mono text-[10px] tracking-[1px] text-[#4a5a60]">
+        {label}
+      </span>
+    </div>
+  )
+}
 
 function Home() {
   const [aspirasiInput, setAspirasiInput] = useState('')
@@ -127,16 +191,20 @@ function Home() {
   return (
     <div className="min-h-screen bg-[#DCE2E6] text-[#1E2B30]">
       <Nav />
+      <main id="main">
 
       {/* Hero */}
       <section className="flex flex-col items-center gap-6 px-4 pt-[46px] pb-8 md:px-10">
-        <div className="hero-badge flex items-center gap-2 rounded-full border border-[#c5cdd1] bg-white px-[12px] py-[6px]">
-          <span className="h-[6px] w-[6px] rounded-full bg-[#E78E3F]" />
-          <span className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">
-            PARLEMEN AKSARA 2026/2027.
-          </span>
-        </div>
-        <h1 className="max-w-[860px] text-center text-[clamp(24px,8vw,40px)] font-medium leading-[1.04] tracking-[-1.6px] md:text-[68px] md:tracking-[-2.6px] text-[#164653]">
+        <Parallax speed={0.08} className="flex w-full flex-col items-center gap-6">
+        <h1 className="flex max-w-[860px] flex-col items-center gap-6 text-center text-[clamp(24px,8vw,40px)] font-medium leading-[1.04] tracking-[-1.6px] md:text-[68px] md:tracking-[-2.6px] text-[#164653]">
+          <DiaTextReveal
+            text="Parlemen Aksara 2026/2027."
+            colors={['#E78E3F', '#f7d3a8', '#E78E3F']}
+            textColor="#164653"
+            duration={1.8}
+            delay={0.2}
+            className="font-mono text-[10px] uppercase tracking-[2.4px] md:text-[11px]"
+          />
           <span className="hero-line block">
             <span className="hero-line-inner block whitespace-nowrap">Merangkai Aspirasi</span>
           </span>
@@ -145,12 +213,12 @@ function Home() {
           </span>
         </h1>
         <p className="hero-sub max-w-[600px] text-center text-[15px] leading-[1.55] text-[#4a5a60] md:text-[16px]">
-          Dewan Perwakilan Mahasiswa Fakultas Ilmu Komputer Universitas Djuanda
+          Dewan Perwakilan Mahasiswa Fakultas Ilmu Komputer Universitas Djuanda.
         </p>
         <div className="flex items-center gap-[10px]">
           <Link
             to="/aduan"
-            className="flex items-center gap-2 rounded-full bg-[#E78E3F] px-5 py-3 text-[13px] font-medium text-[#164653]"
+            className="flex items-center gap-2 rounded-full bg-[#E78E3F] px-5 py-3 text-[13px] font-medium text-[#0B2E36]"
           >
             Sampaikan Aspirasi
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -159,6 +227,7 @@ function Home() {
           </Link>
         
         </div>
+        </Parallax>
       </section>
 
       {/* Program Grid */}
@@ -167,7 +236,7 @@ function Home() {
           <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">
             PROGRAM &amp; LAYANAN
           </span>
-          <span className="font-mono text-[10px] tracking-[0.6px] text-[#6b7a80]">
+          <span className="font-mono text-[10px] tracking-[0.6px] text-[#4a5a60]">
             06 inisiatif aktif
           </span>
         </div>
@@ -209,12 +278,12 @@ function Home() {
                   onChange={(e) => setAspirasiInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') sendAspirasi() }}
                   placeholder="Tulis aspirasi…"
-                  className="flex-1 bg-transparent font-mono text-[10.5px] text-[#4a5a60] outline-none placeholder:text-[#6b7a80]"
+                  className="flex-1 bg-transparent font-mono text-[10.5px] text-[#4a5a60] outline-none placeholder:text-[#4a5a60]"
                 />
                 <button
                   type="button"
                   onClick={sendAspirasi}
-                  className="h-[22px] w-[22px] rounded-full bg-[#2BB3BD] text-[10px] font-bold text-[#164653]"
+                  className="h-[22px] w-[22px] rounded-full bg-[#2BB3BD] text-[10px] font-bold text-[#0B2E36]"
                 >
                   ↑
                 </button>
@@ -270,7 +339,7 @@ function Home() {
                         'top 700ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms, background-color 150ms',
                     }}
                   >
-                    <span className="font-mono text-[9.5px] tracking-[0.8px] text-[#6b7a80]">
+                    <span className="font-mono text-[9.5px] tracking-[0.8px] text-[#4a5a60]">
                       {e.date}
                     </span>
                     <span className="text-[12px] text-[#164653]">{e.name}</span>
@@ -291,28 +360,34 @@ function Home() {
             <div className="flex flex-1 overflow-hidden">
               <div className="flex flex-1 flex-col gap-[2px]">
                 <div className="flex flex-1 gap-[2px]">
-                  <div
-                    className="flex-1 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-                    style={{
-                      backgroundImage:
-                        'url(/komisi-1.webp)',
-                    }}
+                  <img
+                    src="/komisi-1.webp"
+                    alt="Kegiatan komisi DPM FILKOM UNIDA"
+                    width={720}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-1/2 flex-1 object-cover"
                   />
-                  <div
-                    className="flex-1 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-                    style={{
-                      backgroundImage:
-                        'url(/komisi-2.webp)',
-                    }}
+                  <img
+                    src="/komisi-2.webp"
+                    alt="Musyawarah komisi DPM FILKOM UNIDA"
+                    width={720}
+                    height={900}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-1/2 flex-1 object-cover"
                   />
                 </div>
               </div>
-              <div
-                className="w-[33%] bg-cover bg-center transition-transform duration-500 hover:scale-105"
-                style={{
-                  backgroundImage:
-                    'url(/komisi-3.webp)',
-                }}
+              <img
+                src="/komisi-3.webp"
+                alt="Dokumentasi kegiatan DPM FILKOM UNIDA"
+                width={720}
+                height={900}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-[33%] object-cover"
               />
             </div>
             <div className="flex items-center justify-between border-t border-[#c5cdd1] px-[18px] py-[13px]">
@@ -328,7 +403,11 @@ function Home() {
             <div className="flex flex-1 items-center justify-center overflow-hidden">
               <img
                 src="/anuan.webp"
-                alt="FILKOM"
+                alt="Suasana Fakultas Ilmu Komputer Universitas Djuanda"
+                width={1280}
+                height={724}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -354,7 +433,7 @@ function Home() {
             Mahasiswa.
           </h2>
           <p className="max-w-full text-[14px] leading-[1.6] text-[#4a5a60] md:max-w-[430px]">
-            DPM FILKOM UNIDA.
+            DPM FILKOM UNIDA
           </p>
           <div className="flex w-full flex-col md:w-[470px]">
             {links.map((l) => (
@@ -363,10 +442,10 @@ function Home() {
                 className="flex items-center justify-between border-b border-[#c5cdd1] py-[13px]"
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-[10px] tracking-[0.6px] text-[#6b7a80]">{l.idx}</span>
+                  <span className="font-mono text-[10px] tracking-[0.6px] text-[#4a5a60]">{l.idx}</span>
                   <span className="text-[14px] text-[#164653]">{l.label}</span>
                 </div>
-                <span className="font-mono text-[10.5px] text-[#6b7a80]">{l.meta}</span>
+                <span className="font-mono text-[10.5px] text-[#4a5a60]">{l.meta}</span>
               </div>
             ))}
           </div>
@@ -410,7 +489,7 @@ function Home() {
           </div>
           <div className="absolute left-14 top-[352px] w-[420px] rounded-[14px] bg-white p-4 shadow-[0_12px_32px_rgba(22,70,83,0.2)]">
             <div className="mb-3 flex items-center justify-between">
-              <span className="font-mono text-[9.5px] tracking-[1px] text-[#6b7a80]">
+              <span className="font-mono text-[9.5px] tracking-[1px] text-[#4a5a60]">
                 STATUS ASPIRASI #A-013
               </span>
               <span className="font-mono text-[9px] tracking-[0.8px] text-[#E78E3F]">DIPROSES</span>
@@ -426,7 +505,7 @@ function Home() {
                   style={{
                     background: i < 3 ? '#DCE2E6' : '#ffffff',
                     border: i < 3 ? '1px solid #DCE2E6' : '1px solid #c5cdd1',
-                    color: i < 3 ? '#164653' : '#6b7a80',
+                    color: i < 3 ? '#164653' : '#4a5a60',
                   }}
                 >
                   <span
@@ -438,8 +517,8 @@ function Home() {
               ))}
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-[#6b7a80]">Respons Komisi III · 2 hari kerja</span>
-              <span className="rounded-full bg-[#2BB3BD] px-3 py-[7px] text-[11px] font-medium text-[#164653]">
+              <span className="text-[11px] text-[#4a5a60]">Respons Komisi III · 2 hari kerja</span>
+              <span className="rounded-full bg-[#2BB3BD] px-3 py-[7px] text-[11px] font-medium text-[#0B2E36]">
                 Lacak
               </span>
             </div>
@@ -448,25 +527,23 @@ function Home() {
       </section>
 
       {/* Stats */}
-      <section className="reveal flex items-center border-y border-[#c5cdd1] bg-white px-4 md:px-8 py-9">
-        {[
-          { value: '200+', label: 'Mahasiswa aktif' },
-          { value: '3', label: 'Aspirasi ditangani' },
-          { value: '10', label: 'Kegiatan per tahun' },
-          { value: '80%', label: 'Tindak lanjut' },
-        ].map((s, i) => (
-          <div key={s.label} className="flex items-center">
-            {i > 0 && <div className="mx-7 h-11 w-px bg-[#c5cdd1]" />}
-            <div className="flex flex-col gap-[6px]">
-              <span className="text-[28px] font-medium leading-none tracking-[-1px] text-[#164653] md:text-[40px] md:tracking-[-1.4px]">
-                {s.value}
-              </span>
-              <span className="font-mono text-[10px] tracking-[1px] text-[#4a5a60]">
-                {s.label}
-              </span>
-            </div>
-          </div>
-        ))}
+      <section className="reveal border-y border-[#c5cdd1] bg-white px-4 py-6 md:px-8 md:py-9">
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {stats.map((s, i) => (
+            <StatCounter
+              key={s.label}
+              value={s.value}
+              suffix={s.suffix}
+              label={s.label}
+              className={[
+                'py-4 md:py-0',
+                i % 2 === 1 ? 'border-l border-[#c5cdd1] pl-5' : 'pr-5',
+                i >= 2 ? 'border-t border-[#c5cdd1] md:border-t-0' : '',
+                i > 0 ? 'md:border-l md:border-[#c5cdd1] md:pl-7' : 'md:pl-0',
+              ].join(' ')}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Team */}
@@ -479,8 +556,8 @@ function Home() {
             </h2>
           </div>
           <div className="flex items-center gap-[6px] pb-1">
-            <span className="font-mono text-[10px] tracking-[0.9px] text-[#6b7a80]">PERIODE 2026/2027</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6b7a80" strokeWidth="2">
+            <span className="font-mono text-[10px] tracking-[0.9px] text-[#4a5a60]">PERIODE 2026/2027</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4a5a60" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7V17" />
             </svg>
           </div>
@@ -495,13 +572,17 @@ function Home() {
               <div className="overflow-hidden rounded-xl border border-[#c5cdd1] bg-[#DCE2E6]">
                 <img
                   src={m.photo}
-                  alt={m.name}
+                  alt={`${m.name} — ${m.role}`}
+                  width={720}
+                  height={900}
+                  loading="lazy"
+                  decoding="async"
                   className="block h-auto w-full"
                 />
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[14px] text-[#164653]">{m.name}</span>
-                <span className="font-mono text-[9px] tracking-[0.9px] text-[#6b7a80]">{m.role}</span>
+                <span className="font-mono text-[9px] tracking-[0.9px] text-[#4a5a60]">{m.role}</span>
               </div>
             </div>
           ))}
@@ -512,13 +593,17 @@ function Home() {
               <div className="overflow-hidden rounded-xl border border-[#c5cdd1] bg-[#DCE2E6]">
                 <img
                   src={m.photo}
-                  alt={m.name}
+                  alt={`${m.name} — ${m.role}`}
+                  width={720}
+                  height={900}
+                  loading="lazy"
+                  decoding="async"
                   className="block h-auto w-full"
                 />
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[14px] text-[#164653]">{m.name}</span>
-                <span className="font-mono text-[9px] tracking-[0.9px] text-[#6b7a80]">{m.role}</span>
+                <span className="font-mono text-[9px] tracking-[0.9px] text-[#4a5a60]">{m.role}</span>
               </div>
             </div>
           ))}
@@ -529,7 +614,9 @@ function Home() {
       <section className="reveal flex flex-col px-4 md:px-8 pb-8 pt-0">
         <div className="mb-2 flex items-center justify-between border-b border-[#c5cdd1] pb-2">
           <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">KABAR TERBARU</span>
-          <span className="text-[11px] text-[#4a5a60]">Semua berita ↗</span>
+          <Link to="/berita" className="text-[11px] text-[#4a5a60] hover:text-[#164653]">
+            Semua berita ↗
+          </Link>
         </div>
         {news.map((n) => (
           <div
@@ -537,7 +624,7 @@ function Home() {
             className="flex items-center justify-between border-b border-[#c5cdd1] py-[22px]"
           >
             <div className="flex items-center gap-6">
-              <span className="font-mono text-[10px] tracking-[0.8px] text-[#6b7a80]">{n.date}</span>
+              <span className="font-mono text-[10px] tracking-[0.8px] text-[#4a5a60]">{n.date}</span>
               <span className="text-[16px] font-medium tracking-[-0.4px] text-[#164653] md:text-[20px]">{n.title}</span>
             </div>
             <div className="flex items-center gap-4">
@@ -562,21 +649,31 @@ function Home() {
           <p className="max-w-[560px] text-[14px] leading-[1.6] text-[#a0b0b6]">
            Dewan Perwakilan Mahasiswa Fakultas Ilmu Komputer Universitas Djuanda
           </p>
-          <a
-            href="/aduan"
-            className="flex items-center gap-2 rounded-full bg-[#E78E3F] px-[22px] py-[13px] text-[13px] font-medium text-[#164653]"
+          <Link
+            to="/aduan"
+            className="flex items-center gap-2 rounded-full bg-[#E78E3F] px-[22px] py-[13px] text-[13px] font-medium text-[#0B2E36]"
           >
             Buat Surat Aduan
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7V17" />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
 
+      </main>
       <SiteFooter />
     </div>
   )
 }
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  component: Home,
+  head: () =>
+    pageHead({
+      title: 'DPM FILKOM UNIDA | Dewan Perwakilan Mahasiswa 2026/2027',
+      description:
+        'Website resmi Dewan Perwakilan Mahasiswa (DPM) Fakultas Ilmu Komputer Universitas Djuanda Bogor periode 2026/2027. Kenali Parlemen Aksara, struktur organisasi, komisi, aspirasi, dan kegiatan DPM FILKOM UNIDA.',
+      path: '/',
+    }),
+})

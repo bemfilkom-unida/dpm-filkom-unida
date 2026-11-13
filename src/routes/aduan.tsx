@@ -2,8 +2,19 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import Nav from '../components/Nav'
 import SiteFooter from '../components/SiteFooter'
+import { pageHead } from '../lib/seo'
 
-export const Route = createFileRoute('/aduan')({ component: Aduan })
+export const Route = createFileRoute('/aduan')({
+  component: Aduan,
+  head: () =>
+    pageHead({
+      title: 'Aduan Mahasiswa | DPM FILKOM UNIDA 2026/2027',
+      description:
+        'Sampaikan aspirasi, aduan, atau masukan kepada DPM FILKOM UNIDA. Surat aduan mahasiswa Fakultas Ilmu Komputer Universitas Djuanda diteruskan ke komisi terkait.',
+      path: '/aduan',
+      breadcrumb: 'Aduan',
+    }),
+})
 
 function Aduan() {
   const [form, setForm] = useState({
@@ -25,13 +36,14 @@ function Aduan() {
   return (
     <div className="min-h-screen bg-[#DCE2E6] text-[#1E2B30]">
       <Nav />
+      <main id="main">
       <section className="flex flex-col gap-16 px-4 md:px-8 pt-[46px] pb-8 md:flex-row">
-        <div className="flex w-full flex-col gap-[18px] md:w-full md:w-[540px]">
-          <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">ADUAN</span>
-          <h1 className="max-w-full md:w-[470px] text-[44px] font-medium leading-[1.1] tracking-[-1.6px] text-[#164653]">
+        <div className="flex w-full flex-col gap-[18px] md:w-[540px]">
+          <span data-scroll className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">ADUAN</span>
+          <h1 data-scroll className="max-w-full md:w-[470px] text-[44px] font-medium leading-[1.1] tracking-[-1.6px] text-[#164653]">
             Surat aduan mahasiswa.
           </h1>
-          <p className="max-w-full md:w-[430px] text-[14px] leading-[1.6] text-[#4a5a60]">
+          <p data-scroll className="max-w-full md:w-[430px] text-[14px] leading-[1.6] text-[#4a5a60]">
             Sampaikan aspirasi, aduan, atau masukan Anda kepada DPM FILKOM UNIDA.
           </p>
         </div>
@@ -49,16 +61,18 @@ function Aduan() {
       </section>
 
       <section className="grid grid-cols-1 gap-8 px-4 md:px-8 pb-8 md:grid-cols-2 md:items-stretch">
-        <div className="flex flex-col">
+        <div data-scroll className="flex flex-col">
           <div className="mb-4 flex items-center justify-between border-b border-[#c5cdd1] pb-2">
             <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">FORM ADUAN</span>
           </div>
           <div className="rounded-2xl border border-[#c5cdd1] bg-white p-8">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">NAMA</label>
+                <label htmlFor="aduan-nama" className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">NAMA</label>
                 <input
+                  id="aduan-nama"
                   name="nama"
+                  autoComplete="name"
                   value={form.nama}
                   onChange={handleChange}
                   required
@@ -67,9 +81,12 @@ function Aduan() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">NIM</label>
+                <label htmlFor="aduan-nim" className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">NIM</label>
                 <input
+                  id="aduan-nim"
                   name="nim"
+                  inputMode="numeric"
+                  autoComplete="username"
                   value={form.nim}
                   onChange={handleChange}
                   required
@@ -78,8 +95,9 @@ function Aduan() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">KOMISI TUJUAN</label>
+                <label htmlFor="aduan-komisi" className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">KOMISI TUJUAN</label>
                 <select
+                  id="aduan-komisi"
                   name="komisi"
                   value={form.komisi}
                   onChange={handleChange}
@@ -91,8 +109,9 @@ function Aduan() {
                 </select>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">TOPIK</label>
+                <label htmlFor="aduan-topik" className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">TOPIK</label>
                 <input
+                  id="aduan-topik"
                   name="topik"
                   value={form.topik}
                   onChange={handleChange}
@@ -102,8 +121,9 @@ function Aduan() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">ISI ADUAN</label>
+                <label htmlFor="aduan-isi" className="font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]">ISI ADUAN</label>
                 <textarea
+                  id="aduan-isi"
                   name="isi"
                   value={form.isi}
                   onChange={handleChange}
@@ -115,7 +135,7 @@ function Aduan() {
               </div>
               <button
                 type="submit"
-                className="self-start rounded-full bg-[#2BB3BD] px-[22px] py-[13px] text-[13px] font-medium text-[#164653]"
+                className="self-start rounded-full bg-[#2BB3BD] px-[22px] py-[13px] text-[13px] font-medium text-[#0B2E36]"
               >
                 Kirim Aduan
               </button>
@@ -123,43 +143,44 @@ function Aduan() {
           </div>
         </div>
 
-        <div className="flex flex-col">
+        <div data-scroll className="flex flex-col">
           <div className="mb-4 flex items-center justify-between border-b border-[#c5cdd1] pb-2">
             <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">TIKET ADUAN</span>
           </div>
           <div className="flex h-full flex-col gap-4 rounded-2xl border border-[#164653] bg-white p-6">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] tracking-[1.1px] text-[#E78E3F]">TIKET #ADU-001</span>
-              <span className="rounded-full bg-[#2BB3BD] px-3 py-1 text-[10px] font-medium text-[#164653]">DIPROSES</span>
+              <span className="rounded-full bg-[#2BB3BD] px-3 py-1 text-[10px] font-medium text-[#0B2E36]">DIPROSES</span>
             </div>
             <div className="flex flex-col gap-2 border-t border-[#c5cdd1] pt-4">
               <div className="flex justify-between">
-                <span className="font-mono text-[10px] text-[#6b7a80]">NAMA</span>
+                <span className="font-mono text-[10px] text-[#4a5a60]">NAMA</span>
                 <span className="text-[13px] text-[#164653]">{form.nama || '—'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-mono text-[10px] text-[#6b7a80]">NIM</span>
+                <span className="font-mono text-[10px] text-[#4a5a60]">NIM</span>
                 <span className="text-[13px] text-[#164653]">{form.nim || '—'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-mono text-[10px] text-[#6b7a80]">KOMISI</span>
+                <span className="font-mono text-[10px] text-[#4a5a60]">KOMISI</span>
                 <span className="text-[13px] text-[#164653]">{form.komisi}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-mono text-[10px] text-[#6b7a80]">TOPIK</span>
+                <span className="font-mono text-[10px] text-[#4a5a60]">TOPIK</span>
                 <span className="text-[13px] text-[#164653]">{form.topik || '—'}</span>
               </div>
             </div>
             <div className="rounded-xl bg-[#DCE2E6] p-4">
               <p className="m-0 text-[12px] leading-[1.5] text-[#4a5a60]">{form.isi || 'Isi aduan akan tampil di sini...'}</p>
             </div>
-            <p className="m-0 text-[11px] text-[#6b7a80]">
+            <p className="m-0 text-[11px] text-[#4a5a60]">
               Aduan akan ditindaklanjuti oleh komisi terkait.
             </p>
           </div>
         </div>
       </section>
 
+      </main>
       <SiteFooter />
     </div>
   )

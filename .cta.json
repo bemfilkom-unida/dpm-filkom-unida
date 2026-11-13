@@ -4,7 +4,7 @@
   "bundler": "vite",
   "typescript": true,
   "tailwind": true,
-  "packageManager": "npm",
+  "packageManager": "bun",
   "git": true,
   "install": true,
   "intent": true,

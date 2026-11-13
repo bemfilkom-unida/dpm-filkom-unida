@@ -1,95 +1,78 @@
-# DPM FILKOM UNIDA
+<p align="center">
+  <img alt="DPM FILKOM UNIDA" src="public/logo-dpm.webp" width="110" height="auto" />
+</p>
 
-Situs profil organisasi Dewan Perwakilan Mahasiswa (DPM) Fakultas Ilmu Komputer Universitas Djuanda — monochrome editorial dengan aksen oranye.
+<h1 align="center">DPM FILKOM UNIDA</h1>
 
-## Stack
+<p align="center">
+  <strong>Dewan Perwakilan Mahasiswa</strong> · Fakultas Ilmu Komputer, Universitas Djuanda<br />
+  Situs profil dan kanal aspirasi mahasiswa — editorial monokrom dengan aksen oranye.
+</p>
 
-| Layer | Teknologi |
+<p align="center">
+  <a href="https://github.com/bemfilkom-unida/dpm-filkom-unida">Repository</a> ·
+  <a href="https://github.com/bemfilkom-unida/dpm-filkom-unida/issues">Issues</a>
+</p>
+
+---
+
+Situs ini memuat profil DPM, daftar komisi, agenda kegiatan, berita, dan formulir penyampaian aspirasi mahasiswa. Dibangun sebagai aplikasi full-stack dengan **TanStack Start** (SSR), **React 19**, **Tailwind CSS v4**, dan animasi **Motion**, lalu di-build menjadi server Node mandiri lewat **Nitro**.
+
+## Highlights
+
+- **Enam halaman** — Beranda, Tentang, Program (komisi), Berita, Kegiatan, dan Aduan
+- **SSR + SEO per halaman** — title, canonical, Open Graph, JSON-LD, `sitemap.xml`, `robots.txt`
+- **Responsif penuh** — navigasi mobile, grid adaptif, tap target 44px
+- **Aksesibel** — skip link, landmark berlabel, dan `prefers-reduced-motion`
+- **Test** — Vitest + Testing Library
+
+## Tech Stack
+
+| Layer | Stack |
 |---|---|
-| Framework | [TanStack Start](https://tanstack.com/start) (SSR full-stack) |
-| UI | React 19 + TypeScript |
-| Routing | [TanStack Router](https://tanstack.com/router) (file-based) |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) v4 (via `@tailwindcss/vite`) |
-| Animasi | [Motion](https://motion.dev/) |
-| Build/Dev | Vite 8 |
-| Server | [Nitro](https://v3.nitro.build/) |
-| Test | Vitest + Testing Library (jsdom) |
-| Fonts | Inter (sans) + Geist Mono (mono) |
+| Framework | TanStack Start + TanStack Router |
+| UI | React 19, TypeScript, Tailwind CSS v4, Motion |
+| Build | Vite 8, Nitro |
+| Test | Vitest, Testing Library (jsdom) |
+| Font | Inter, Geist Mono |
 
-## Getting Started
+## Menjalankan Lokal
 
 ```bash
 bun install
 bun run dev
 ```
 
-Dev server berjalan di `http://localhost:3000`.
+Buka <http://localhost:3000>.
 
 ## Scripts
 
 | Command | Fungsi |
 |---|---|
-| `bun run dev` | Jalankan dev server (port 3000) |
-| `bun run build` | Build produksi |
-| `bun run preview` | Preview hasil build |
-| `bun run test` | Jalankan unit test (Vitest) |
-| `bun run typecheck` | Cek tipe dengan `tsc --noEmit` |
-| `bun run verify` | typecheck + test + build sekaligus |
-| `bun run start` | Jalankan hasil build (`.output/server/index.mjs`) |
+| `bun run dev` | Dev server di port 3000 |
+| `bun run build` | Build produksi ke `.output/` |
+| `bun run start` | Jalankan hasil build |
+| `bun run test` | Unit test (Vitest) |
+| `bun run typecheck` | Cek tipe |
+| `bun run verify` | typecheck + test + build |
 
-Semua command juga bisa dijalankan lewat `npm run <command>`.
+## Struktur
 
-## Building for Production
-
-```bash
-bun run build
-bun run start
+```text
+src/
+├── routes/        # index, tentang, komisi, berita, kegiatan, aduan
+├── components/    # Nav, SiteFooter, ScrollEffects, ui/
+├── lib/           # seo.ts (metadata & JSON-LD), utils.ts
+├── test/          # Setup Vitest
+└── styles.css     # Token design + efek scroll
 ```
 
-Build menghasilkan server Node self-contained di `.output/`. Deploy dengan cara push hasil build ke host (Render, Fly.io, VPS, Vercel, dll.) lalu jalankan server. Preset host lain tersedia di https://v3.nitro.build/deploy.
-
-## Environment Variables
+## Environment
 
 | Variabel | Fungsi |
 |---|---|
-| `VITE_GOOGLE_SITE_VERIFICATION` | Token verifikasi Google Search Console. Opsional; kalau kosong, meta tag tidak dirender. |
+| `VITE_GOOGLE_SITE_VERIFICATION` | Token Google Search Console (opsional) |
 
-## Struktur Proyek
+## Lisensi
 
-```
-src/
-├── routes/            # File-based routes (TanStack Router)
-│   ├── __root.tsx     # Root layout, metadata global, JSON-LD, scroll effects
-│   ├── index.tsx      # Beranda
-│   ├── tentang.tsx    # Tentang
-│   ├── aduan.tsx      # Aduan mahasiswa
-│   ├── berita.tsx     # Berita
-│   ├── kegiatan.tsx   # Kegiatan
-│   └── komisi.tsx     # Komisi
-├── components/        # Nav, SiteFooter, ScrollEffects
-│   └── ui/            # Komponen teks animasi (DiaTextReveal)
-├── lib/               # seo.ts (metadata & JSON-LD), utils.ts (cn)
-├── test/setup.ts      # Setup Vitest + jest-dom
-├── router.tsx         # Konfigurasi router
-├── styles.css         # Tailwind + token design + efek scroll
-└── routeTree.gen.ts   # Route tree (auto-generated)
-```
-
-## Fitur
-
-- **Routing file-based** — tambah route baru dengan membuat file di `src/routes/`.
-- **SSR** via TanStack Start + Nitro.
-- **SEO** — title, description, canonical, Open Graph/Twitter, dan JSON-LD (Organization, WebSite, WebPage, BreadcrumbList) per halaman lewat `src/lib/seo.ts`; `robots.txt` dan `sitemap.xml` ada di `public/`.
-- **Aksesibilitas** — skip link, landmark `main`/`nav` berlabel, label form terhubung, dan `prefers-reduced-motion` untuk semua animasi.
-- **Scroll effects** — progress bar dan reveal on scroll (`ScrollEffects.tsx`), otomatis nonaktif saat reduced motion.
-- **Devtools** — TanStack Router & Devtools panel (hanya aktif di dev).
-- **Test** — Vitest + Testing Library, dijalankan dengan `bun run test`.
-
-## Design
-
-Design system dan token ada di `design.md` (monochrome editorial, warna brand FILKOM, tipografi Inter + Geist Mono).
-
-## Learn More
-
-- [TanStack Start](https://tanstack.com/start)
-- [TanStack Router](https://tanstack.com/router)
+MIT © BEM FILKOM UNIDA

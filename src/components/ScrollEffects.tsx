@@ -109,6 +109,32 @@ export function ScrollFx() {
 }
 
 /**
+ * Reveals any element marked with the legacy `.reveal` class once it enters
+ * the viewport. Kept separate from ScrollFx so pages can opt in per section.
+ */
+export function useRevealGroups() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    if (prefersReducedMotion()) {
+      els.forEach((el) => el.classList.add('in-view'))
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          entry.target.classList.add('in-view')
+          observer.unobserve(entry.target)
+        })
+      },
+      { threshold: 0.15 },
+    )
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+}
+
+/**
  * Subtle scroll-linked drift. Positive speed makes the content move slower
  * than the page (parallax lag); a small value is enough.
  */

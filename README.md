@@ -60,12 +60,15 @@ Open <http://localhost:3000>.
 
 ```text
 src/
-├── routes/        # index, tentang, komisi, berita, kegiatan, aduan
-├── components/    # Nav, SiteFooter, ScrollEffects, ui/
+├── routes/        # Route files: head metadata + one page component
+├── features/      # One folder per page (home, about, commissions, news, activities, aspirations)
+├── data/          # Static content: team, news, commissions, activities, home copy
+├── components/    # layout/ (Nav, SiteFooter, PageShell), ui/ (primitives), ScrollEffects
 ├── lib/           # seo.ts (metadata & JSON-LD), utils.ts
-├── test/          # Vitest setup
 └── styles.css     # Design tokens + scroll effects
 ```
+
+Route files stay small on purpose: they declare the URL, the `head()` metadata and which page renders. Everything a page needs — sections, form state, data — lives in its `features/` folder, and shared markup (page hero, section bar, arrow icon, page shell) lives in `components/`.
 
 ## Environment
 

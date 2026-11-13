@@ -101,6 +101,11 @@
   .scroll-progress-bar {
     transition: none;
   }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @keyframes bubble-in {

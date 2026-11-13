@@ -37,16 +37,17 @@ describe('Nav', () => {
     render(<Nav />)
     const toggle = screen.getByRole('button', { name: 'Buka menu' })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
-    expect(document.querySelector('#menu-mobile')).toBeNull()
+    const menu = () => document.querySelector('#full-menu')
+    expect(menu()).toHaveAttribute('aria-hidden', 'true')
 
     await user.click(toggle)
 
     const closeButton = screen.getByRole('button', { name: 'Tutup menu' })
     expect(closeButton).toHaveAttribute('aria-expanded', 'true')
-    expect(closeButton).toHaveAttribute('aria-controls', 'menu-mobile')
-    expect(document.querySelector('#menu-mobile')).not.toBeNull()
+    expect(closeButton).toHaveAttribute('aria-controls', 'full-menu')
+    expect(menu()).toHaveAttribute('aria-hidden', 'false')
 
     await user.click(closeButton)
-    expect(document.querySelector('#menu-mobile')).toBeNull()
+    expect(menu()).toHaveAttribute('aria-hidden', 'true')
   })
 })

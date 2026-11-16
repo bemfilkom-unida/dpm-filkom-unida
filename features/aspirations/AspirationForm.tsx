@@ -1,5 +1,9 @@
 import type { ChangeEvent, FormEvent, ReactNode } from 'react'
+import { cn } from '../../lib/utils'
 import type { AspirationFormValues } from './model'
+
+/** Umpan balik ringan setelah handoff ke WhatsApp. */
+export type FormFeedback = { ok: boolean; text: string }
 
 const INPUT_CLASS =
   'rounded-xl border border-[#c5cdd1] bg-[#DCE2E6] px-4 py-3 text-[14px] text-[#1E2B30] outline-none focus:border-[#2BB3BD]'
@@ -29,10 +33,12 @@ export function AspirationForm({
   values,
   onChange,
   onSubmit,
+  feedback,
 }: {
   values: AspirationFormValues
   onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
   onSubmit: (event: FormEvent) => void
+  feedback?: FormFeedback | null
 }) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5">
@@ -108,6 +114,18 @@ export function AspirationForm({
       >
         Kirim Aduan
       </button>
+
+      {feedback && (
+        <p
+          role="status"
+          className={cn(
+            'm-0 self-start text-[11px]',
+            feedback.ok ? 'text-[#4a5a60]' : 'text-[#E78E3F]',
+          )}
+        >
+          {feedback.text}
+        </p>
+      )}
     </form>
   )
 }

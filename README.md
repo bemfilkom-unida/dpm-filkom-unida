@@ -80,6 +80,7 @@ Because the app root is the repository root, `vite.config.ts` overrides TanStack
 | Variable | Purpose |
 |---|---|
 | `VITE_GOOGLE_SITE_VERIFICATION` | Google Search Console token (optional) |
+| `VITE_WHATSAPP_NUMBER` | Override nomor WhatsApp tujuan form aduan, format internasional tanpa `+`/spasi/dash (contoh `6281234567890`). Default sudah menunjuk nomor secretariat DPM; isi hanya kalau nomornya berubah. Lihat `.env.example`. |
 
 ## License
 

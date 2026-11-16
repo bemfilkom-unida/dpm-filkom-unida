@@ -6,9 +6,12 @@ import { SectionBar } from '../../components/ui/SectionBar'
 import { AspirationForm } from './AspirationForm'
 import { AspirationTicket } from './AspirationTicket'
 import { EMPTY_ASPIRATION, type AspirationFormValues } from './model'
+import type { FormFeedback } from './AspirationForm'
+import { WHATSAPP_NUMBER, buildWhatsAppUrl } from './whatsapp'
 
 export default function AspirationsPage() {
   const [values, setValues] = useState<AspirationFormValues>(EMPTY_ASPIRATION)
+  const [feedback, setFeedback] = useState<FormFeedback | null>(null)
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -17,8 +20,23 @@ export default function AspirationsPage() {
   }
 
   function handleSubmit(event: FormEvent) {
-    // No backend endpoint yet: the ticket preview updates as the user types.
     event.preventDefault()
+
+    if (!WHATSAPP_NUMBER) {
+      console.error(
+        'VITE_WHATSAPP_NUMBER belum diisi. Set nomor WhatsApp secretariat DPM (format 62812...) di .env.',
+      )
+      setFeedback({
+        ok: false,
+        text: 'Nomor WhatsApp DPM belum dikonfigurasi. Hubungi sekretariat.',
+      })
+      return
+    }
+
+    // `noopener,noreferrer` membuat window.open mengembalikan null, jadi tidak
+    // ada cara membedakan popup yang diblokir. Pesan tetap informatif.
+    window.open(buildWhatsAppUrl(values), '_blank', 'noopener,noreferrer')
+    setFeedback({ ok: true, text: 'Aduan dibuka di WhatsApp. Kirim pesannya untuk melanjutkan.' })
   }
 
   return (
@@ -38,6 +56,7 @@ export default function AspirationsPage() {
               values={values}
               onChange={handleChange}
               onSubmit={handleSubmit}
+              feedback={feedback}
             />
           </div>
         </div>

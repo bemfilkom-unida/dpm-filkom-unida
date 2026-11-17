@@ -1,7 +1,7 @@
 import type { AspirationFormValues } from './model'
 
-/** Nomor secretariat DPM, format internasional tanpa `+`. */
-const DEFAULT_WHATSAPP_NUMBER = '6288210555341'
+/** Nomor WhatsApp tujuan aduan, format internasional tanpa `+`. */
+const DEFAULT_WHATSAPP_NUMBER = '6285814023325'
 
 /**
  * Nomor WhatsApp tujuan aduan: env `VITE_WHATSAPP_NUMBER` bila diisi, kalau tidak

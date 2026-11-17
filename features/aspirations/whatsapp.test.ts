@@ -22,8 +22,8 @@ describe('normalizeWhatsAppNumber', () => {
 })
 
 describe('WHATSAPP_NUMBER', () => {
-  it('memakai nomor secretariat default berformat internasional', () => {
-    expect(WHATSAPP_NUMBER).toBe('6288210555341')
+  it('memakai nomor tujuan default berformat internasional', () => {
+    expect(WHATSAPP_NUMBER).toBe('6285814023325')
   })
 })
 

@@ -8,7 +8,7 @@ import SiteFooter from './SiteFooter'
  */
 export default function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#DCE2E6] text-[#1E2B30]">
+    <div className="min-h-screen bg-bg text-text">
       <Nav />
       <main id="main">{children}</main>
       <SiteFooter />

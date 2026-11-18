@@ -51,7 +51,7 @@ export default function AspirationsPage() {
       <section className="grid grid-cols-1 gap-8 px-4 md:px-8 pb-8 md:grid-cols-2 md:items-stretch">
         <div data-scroll className="flex flex-col">
           <SectionBar label="FORM ADUAN" />
-          <div className="rounded-2xl border border-[#c5cdd1] bg-white p-8">
+          <div className="rounded-2xl border border-border bg-surface p-8">
             <AspirationForm
               values={values}
               onChange={handleChange}

@@ -1,19 +1,55 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --color-bg: #DCE2E6;
   --color-surface: #ffffff;
-  --color-primary: #2BB3BD;
-  --color-secondary: #44C2D6;
-  --color-dark: #164653;
-  --color-warm: #E78E3F;
+  --color-card: #ffffff;
+  --color-panel: #164653;
+  --color-heading: #164653;
   --color-text: #1E2B30;
   --color-muted: #4a5a60;
   --color-border: #c5cdd1;
-  --color-card: #ffffff;
-  --color-fog: #4a5a60;
+  --color-primary: #2BB3BD;
+  --color-secondary: #44C2D6;
+  --color-warm: #E78E3F;
+  --color-warm-hover: #f0a055;
+  --color-highlight: #f7d3a8;
+  --color-soft: #f4f7f8;
+  --color-on-accent: #0B2E36;
+  --color-on-panel: #ffffff;
+  --color-code-urgent: #DCE2E6;
+  --color-ink: #1E2B30;
+  --color-ink-deep: #0f1c20;
+  --color-ink-border: #2a3a40;
+  --color-ink-divider: #3a4a50;
+  --color-ink-muted: #a0b0b6;
+  --color-ink-subtle: #8a9ba1;
+  --color-ink-link: #c5d0d4;
+  --color-cursor: #ff6208;
+  --color-terminal: #d4d4d4;
+  --color-terminal-bright: #f0f0f0;
+  --color-selection: rgba(79, 184, 178, 0.24);
+}
+
+.dark {
+  --color-bg: #0f1c20;
+  --color-surface: #16262c;
+  --color-card: #182b32;
+  --color-panel: #1b3a43;
+  --color-heading: #e7f0f2;
+  --color-text: #dae6e9;
+  --color-muted: #a6b9bf;
+  --color-border: #2c444d;
+  --color-primary: #4fc6cf;
+  --color-secondary: #5fd0e0;
+  --color-warm: #f5a565;
+  --color-warm-hover: #ffbe8f;
+  --color-soft: #1c2f36;
+  --color-selection: rgba(79, 184, 178, 0.35);
 }
 
 @layer base {
@@ -22,9 +58,9 @@
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    color: #1E2B30;
+    color: var(--color-text);
     font-family: var(--font-sans);
-    background: #DCE2E6;
+    background: var(--color-bg);
     overflow-x: hidden;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
@@ -37,6 +73,15 @@
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .container { width: 100%; max-width: 1376px; margin-inline: auto; padding-inline: 32px; }
+
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    var(--color-primary) 45%,
+    var(--color-panel) 100%
+  );
+}
 
 @keyframes blink {
   0%, 50% { opacity: 1; }
@@ -68,7 +113,7 @@
   width: 100%;
   transform: scaleX(0);
   transform-origin: 0 50%;
-  background: #E78E3F;
+  background: var(--color-warm);
   will-change: transform;
 }
 

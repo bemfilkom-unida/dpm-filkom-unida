@@ -48,18 +48,18 @@ function StatCounter({
 
   return (
     <div ref={ref} className={`flex flex-col gap-[6px] ${className}`}>
-      <span className="text-[28px] font-medium leading-none tracking-[-1px] text-[#164653] tabular-nums md:text-[40px] md:tracking-[-1.4px]">
+      <span className="text-[28px] font-medium leading-none tracking-[-1px] text-heading tabular-nums md:text-[40px] md:tracking-[-1.4px]">
         {display}
         {suffix}
       </span>
-      <span className="font-mono text-[10px] tracking-[1px] text-[#4a5a60]">{label}</span>
+      <span className="font-mono text-[10px] tracking-[1px] text-muted">{label}</span>
     </div>
   )
 }
 
 export function StatsSection() {
   return (
-    <section className="reveal border-y border-[#c5cdd1] bg-white px-4 py-6 md:px-8 md:py-9">
+    <section className="reveal border-y border-border bg-surface px-4 py-6 md:px-8 md:py-9">
       <div className="grid grid-cols-2 md:grid-cols-4">
         {stats.map((item, index) => (
           <StatCounter
@@ -69,9 +69,9 @@ export function StatsSection() {
             label={item.label}
             className={[
               'py-4 md:py-0',
-              index % 2 === 1 ? 'border-l border-[#c5cdd1] pl-5' : 'pr-5',
-              index >= 2 ? 'border-t border-[#c5cdd1] md:border-t-0' : '',
-              index > 0 ? 'md:border-l md:border-[#c5cdd1] md:pl-7' : 'md:pl-0',
+              index % 2 === 1 ? 'border-l border-border pl-5' : 'pr-5',
+              index >= 2 ? 'border-t border-border md:border-t-0' : '',
+              index > 0 ? 'md:border-l md:border-border md:pl-7' : 'md:pl-0',
             ].join(' ')}
           />
         ))}

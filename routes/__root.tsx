@@ -4,6 +4,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import appCss from '../styles.css?url'
 import { ScrollFx, ScrollProgress } from '../components/ScrollEffects'
+import { THEME_INIT_SCRIPT } from '../lib/theme'
 import {
   DEFAULT_OG_IMAGE,
   OG_IMAGE_HEIGHT,
@@ -142,13 +143,13 @@ export const Route = createRootRoute({
 
 function NotFound() {
   return (
-    <div className="min-h-screen bg-[#DCE2E6] text-[#1E2B30]">
+    <div className="min-h-screen bg-bg text-text">
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
-        <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">404</span>
-        <h1 className="text-[44px] font-medium tracking-[-1.6px] text-[#164653]">Halaman tidak ditemukan.</h1>
+        <span className="font-mono text-[10px] tracking-[1.2px] text-muted">404</span>
+        <h1 className="text-[44px] font-medium tracking-[-1.6px] text-heading">Halaman tidak ditemukan.</h1>
         <Link
           to="/"
-          className="rounded-full bg-[#2BB3BD] px-[22px] py-[13px] text-[13px] font-medium text-[#0B2E36]"
+          className="rounded-full bg-primary px-[22px] py-[13px] text-[13px] font-medium text-on-accent"
         >
           Kembali ke Beranda
         </Link>
@@ -159,14 +160,15 @@ function NotFound() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-selection">
         <a
           href="#main"
-          className="sr-only z-[100] rounded-md bg-[#164653] px-4 py-2 text-[13px] text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[100] rounded-md bg-panel px-4 py-2 text-[13px] text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Lompat ke konten
         </a>

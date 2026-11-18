@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import ThemeToggle from '../ui/ThemeToggle'
 
 const items = [
   { label: 'Beranda', to: '/' as const },
@@ -47,8 +48,8 @@ export default function Nav() {
         aria-label="Navigasi utama"
         className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? 'border-b border-[#c5cdd1]/80 bg-white/95 backdrop-blur-md shadow-sm'
-            : 'border-b border-transparent bg-white'
+            ? 'border-b border-border/80 bg-surface/95 backdrop-blur-md shadow-sm'
+            : 'border-b border-transparent bg-surface'
         }`}
       >
         <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between px-4 md:px-8">
@@ -65,7 +66,7 @@ export default function Nav() {
               height={32}
               className="h-8 w-8 object-contain"
             />
-            <span className="text-[15px] font-semibold tracking-tight text-[#164653]">
+            <span className="text-[15px] font-semibold tracking-tight text-heading">
               DPM FILKOM UNIDA
             </span>
           </Link>
@@ -76,34 +77,38 @@ export default function Nav() {
               <Link
                 key={it.label}
                 to={it.to}
-                className="text-[13px] text-[#4a5a60] transition-colors hover:text-[#164653]"
+                className="text-[13px] text-muted transition-colors hover:text-heading"
               >
                 {it.label}
               </Link>
             ))}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <Link
-              to="/aduan"
-              className="inline-flex items-center rounded-full bg-[#2BB3BD] px-4 py-2 text-[13px] font-medium text-[#0B2E36] transition-opacity hover:opacity-90"
-            >
-              Aduan
-            </Link>
-          </div>
+          <div className="flex items-center gap-2">
+            {/* Desktop CTA */}
+            <div className="hidden md:block">
+              <Link
+                to="/aduan"
+                className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-[13px] font-medium text-on-accent transition-opacity hover:opacity-90"
+              >
+                Aduan
+              </Link>
+            </div>
 
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-[#c5cdd1] text-[#164653] transition-colors hover:bg-[#f4f7f8] md:hidden"
-            aria-label={open ? 'Tutup menu' : 'Buka menu'}
-            aria-expanded={open}
-            aria-controls="full-menu"
-          >
-            <span className="text-lg leading-none">{open ? '✕' : '☰'}</span>
-          </button>
+            <ThemeToggle />
+
+            {/* Mobile toggle */}
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-border text-heading transition-colors hover:bg-soft md:hidden"
+              aria-label={open ? 'Tutup menu' : 'Buka menu'}
+              aria-expanded={open}
+              aria-controls="full-menu"
+            >
+              <span className="text-lg leading-none">{open ? '✕' : '☰'}</span>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -113,7 +118,7 @@ export default function Nav() {
       {/* ========== FULL SCREEN MENU ========== */}
       <div
         id="full-menu"
-        className={`fixed inset-0 z-40 bg-[#0f1c20] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        className={`fixed inset-0 z-40 bg-ink-deep transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
           open
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0'
@@ -155,7 +160,7 @@ export default function Nav() {
             <Link
               to="/aduan"
               onClick={() => setOpen(false)}
-              className="inline-flex w-full items-center justify-center rounded-full bg-[#2BB3BD] py-3.5 text-[15px] font-medium text-[#0B2E36]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-primary py-3.5 text-[15px] font-medium text-on-accent"
             >
               Sampaikan Aduan
             </Link>

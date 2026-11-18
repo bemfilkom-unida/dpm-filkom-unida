@@ -36,8 +36,8 @@ function useAutoCarousel(ref: React.RefObject<HTMLDivElement | null>) {
 function MemberCaption({ member }: { member: TeamMember }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-[14px] text-[#164653]">{member.name}</span>
-      <span className="font-mono text-[9px] tracking-[0.9px] text-[#4a5a60]">{member.role}</span>
+      <span className="text-[14px] text-heading">{member.name}</span>
+      <span className="font-mono text-[9px] tracking-[0.9px] text-muted">{member.role}</span>
     </div>
   )
 }
@@ -45,7 +45,7 @@ function MemberCaption({ member }: { member: TeamMember }) {
 function MemberCard({ member }: { member: TeamMember }) {
   return (
     <div className="flex flex-col gap-[10px]">
-      <div className="overflow-hidden rounded-xl border border-[#c5cdd1] bg-[#DCE2E6]">
+      <div className="overflow-hidden rounded-xl border border-border bg-bg">
         <img
           src={member.photo}
           alt={`${member.name} — ${member.role}`}
@@ -69,16 +69,16 @@ export function TeamSection() {
     <section className="reveal flex flex-col gap-7 px-4 md:px-8 py-8">
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-[14px]">
-          <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">STRUKTUR</span>
-          <h2 className="max-w-[620px] text-[32px] font-medium leading-[1.12] tracking-[-1.2px] text-[#164653] md:text-[44px] md:tracking-[-1.6px]">
+          <span className="font-mono text-[10px] tracking-[1.2px] text-muted">STRUKTUR</span>
+          <h2 className="max-w-[620px] text-[32px] font-medium leading-[1.12] tracking-[-1.2px] text-heading md:text-[44px] md:tracking-[-1.6px]">
             Badan Pengurus Harian.
           </h2>
         </div>
         <div className="flex items-center gap-[6px] pb-1">
-          <span className="font-mono text-[10px] tracking-[0.9px] text-[#4a5a60]">
+          <span className="font-mono text-[10px] tracking-[0.9px] text-muted">
             PERIODE 2026/2027
           </span>
-          <ArrowUpRight size={13} stroke="#4a5a60" />
+          <ArrowUpRight size={13} stroke="var(--color-muted)" />
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export function TeamSection() {
       >
         {[...team, ...team].map((member, index) => (
           <div key={index} className="snap-center shrink-0 w-[72vw] flex flex-col gap-[10px]">
-            <div className="overflow-hidden rounded-xl border border-[#c5cdd1] bg-[#DCE2E6]">
+            <div className="overflow-hidden rounded-xl border border-border bg-bg">
               <img
                 src={member.photo}
                 alt={`${member.name} — ${member.role}`}

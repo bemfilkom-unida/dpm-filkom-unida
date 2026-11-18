@@ -11,7 +11,7 @@ export function ProgramGrid() {
       <SectionBar
         label="PROGRAM & LAYANAN"
         meta={
-          <span className="font-mono text-[10px] tracking-[0.6px] text-[#4a5a60]">
+          <span className="font-mono text-[10px] tracking-[0.6px] text-muted">
             06 inisiatif aktif
           </span>
         }

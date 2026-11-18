@@ -20,18 +20,18 @@ const groups = [
 ]
 
 const linkClass =
-  'inline-flex min-h-11 items-center text-[13px] text-[#c5d0d4] transition-colors duration-200 hover:text-white hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B30] md:min-h-0'
+  'inline-flex min-h-11 items-center text-[13px] text-ink-link transition-colors duration-200 hover:text-white hover:underline hover:underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:min-h-0'
 
 export default function SiteFooter() {
   return (
-    <footer className="w-full rounded-t-3xl border-t border-[#2a3a40] bg-[#1E2B30] px-4 pb-8 pt-12 md:px-8 md:pt-14">
+    <footer className="w-full rounded-t-3xl border-t border-ink-border bg-ink px-4 pb-8 pt-12 md:px-8 md:pt-14">
       <div className="mx-auto flex w-full max-w-[1376px] flex-col gap-10">
         <div className="grid gap-8 md:grid-cols-12 md:gap-8">
           {/* Identitas */}
           <div className="flex flex-col items-start gap-4 md:col-span-5">
             <Link
               to="/"
-              className="flex items-center gap-[10px] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-4 focus-visible:ring-offset-[#1E2B30]"
+              className="flex items-center gap-[10px] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
             >
               <img
                 src="/logo-dpm.webp"
@@ -47,18 +47,18 @@ export default function SiteFooter() {
               </span>
             </Link>
 
-            <p className="m-0 max-w-[340px] text-[13px] leading-[1.6] text-[#a0b0b6]">
+            <p className="m-0 max-w-[340px] text-[13px] leading-[1.6] text-ink-muted">
               Dewan Perwakilan Mahasiswa Fakultas Ilmu Komputer, Universitas
               Djuanda.
             </p>
 
-            <span className="font-mono text-[10px] tracking-[1.1px] text-[#8a9ba1]">
+            <span className="font-mono text-[10px] tracking-[1.1px] text-ink-subtle">
               PARLEMEN AKSARA · 2026/2027
             </span>
 
             <Link
               to="/aduan"
-              className="mt-1 inline-flex items-center gap-2 rounded-full bg-[#E78E3F] px-[16px] py-[10px] text-[12px] font-medium text-[#0B2E36] transition-colors hover:bg-[#f0a055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E78E3F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B30]"
+              className="mt-1 inline-flex items-center gap-2 rounded-full bg-warm px-[16px] py-[10px] text-[12px] font-medium text-on-accent transition-colors hover:bg-warm-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
               Sampaikan Aspirasi
               <svg
@@ -82,7 +82,7 @@ export default function SiteFooter() {
           >
             {groups.map((group) => (
               <div key={group.title} className="flex flex-col gap-2">
-                <span className="font-mono text-[10px] uppercase tracking-[1.2px] text-[#8a9ba1]">
+                <span className="font-mono text-[10px] uppercase tracking-[1.2px] text-ink-subtle">
                   {group.title}
                 </span>
                 <div className="flex flex-col">
@@ -98,22 +98,22 @@ export default function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-5 border-t border-[#2a3a40] pt-6 md:flex-row md:items-center md:justify-between md:gap-8">
+        <div className="flex flex-col gap-5 border-t border-ink-border pt-6 md:flex-row md:items-center md:justify-between md:gap-8">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="text-[11px] text-[#a0b0b6]">
+            <span className="text-[11px] text-ink-muted">
               © 2026 DPM FILKOM UNIDA
             </span>
             <span
               aria-hidden="true"
-              className="hidden h-3 w-px bg-[#3a4a50] md:block"
+              className="hidden h-3 w-px bg-ink-divider md:block"
             />
-            <span className="font-mono text-[10px] tracking-[0.6px] text-[#8a9ba1]">
+            <span className="font-mono text-[10px] tracking-[0.6px] text-ink-subtle">
               Seluruh hak cipta.
             </span>
           </div>
 
           <div className="flex items-center gap-[8px]">
-            <span className="font-mono text-[10px] tracking-[0.6px] text-[#8a9ba1]">
+            <span className="font-mono text-[10px] tracking-[0.6px] text-ink-subtle">
               POWERED BY
             </span>
             <img
@@ -125,7 +125,7 @@ export default function SiteFooter() {
               decoding="async"
               className="h-5 w-5 object-contain"
             />
-            <span className="font-mono text-[10px] tracking-[0.6px] text-[#a0b0b6]">
+            <span className="font-mono text-[10px] tracking-[0.6px] text-ink-muted">
               BEM FILKOM UNIDA
             </span>
           </div>

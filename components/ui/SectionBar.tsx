@@ -15,9 +15,9 @@ export function SectionBar({
 }) {
   return (
     <div
-      className={`mb-4 flex items-center justify-between border-b border-[#c5cdd1] pb-2 ${className}`}
+      className={`mb-4 flex items-center justify-between border-b border-border pb-2 ${className}`}
     >
-      <span className="font-mono text-[10px] tracking-[1.2px] text-[#4a5a60]">
+      <span className="font-mono text-[10px] tracking-[1.2px] text-muted">
         {label}
       </span>
       {meta}

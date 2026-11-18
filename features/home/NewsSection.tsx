@@ -10,7 +10,7 @@ export function NewsSection() {
         label="KABAR TERBARU"
         className="mb-2"
         meta={
-          <Link to="/berita" className="text-[11px] text-[#4a5a60] hover:text-[#164653]">
+          <Link to="/berita" className="text-[11px] text-muted hover:text-heading">
             Semua berita ↗
           </Link>
         }
@@ -18,21 +18,21 @@ export function NewsSection() {
       {news.map((item) => (
         <div
           key={item.title}
-          className="flex items-center justify-between border-b border-[#c5cdd1] py-[22px]"
+          className="flex items-center justify-between border-b border-border py-[22px]"
         >
           <div className="flex items-center gap-6">
-            <span className="font-mono text-[10px] tracking-[0.8px] text-[#4a5a60]">
+            <span className="font-mono text-[10px] tracking-[0.8px] text-muted">
               {item.date}
             </span>
-            <span className="text-[16px] font-medium tracking-[-0.4px] text-[#164653] md:text-[20px]">
+            <span className="text-[16px] font-medium tracking-[-0.4px] text-heading md:text-[20px]">
               {item.title}
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[9px] tracking-[0.9px] text-[#4a5a60]">
+            <span className="font-mono text-[9px] tracking-[0.9px] text-muted">
               {item.tag}
             </span>
-            <ArrowUpRight size={15} stroke="#164653" />
+            <ArrowUpRight size={15} stroke="var(--color-heading)" />
           </div>
         </div>
       ))}

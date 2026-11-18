@@ -45,6 +45,8 @@ export class MockIntersectionObserver {
 beforeEach(() => {
   motionPreference.reduced = false
   intersectionObservers.length = 0
+  localStorage.clear()
+  document.documentElement.classList.remove('dark')
   vi.stubGlobal('matchMedia', matchMediaMock)
   vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
 })

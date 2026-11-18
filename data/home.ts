@@ -43,15 +43,15 @@ export const stats: Stat[] = [
 
 /** Terminal transcript typed out by the "Sistem" card. */
 export const codeLines: CodeLine[] = [
-  { text: '$ dpm aspirasi --list', className: 'text-[#a0b0b6]' },
-  { text: '', className: 'text-[#d4d4d4]' },
-  { text: 'GET /api/v1/aspirasi', className: 'text-[#f0f0f0]' },
-  { text: '200 OK · 128 entri', className: 'text-[#E78E3F]' },
-  { text: '', className: 'text-[#d4d4d4]' },
-  { text: 'ID · TOPIK · STATUS', className: 'text-[#4a5a60]' },
-  { text: 'A-012 · Kebijakan · selesai', className: 'text-[#d4d4d4]' },
-  { text: 'A-013 · Fasilitas · diproses', className: 'text-[#d4d4d4]' },
-  { text: 'A-014 · Kurikulum · baru', className: 'text-[#d4d4d4]' },
+  { text: '$ dpm aspirasi --list', className: 'text-ink-muted' },
+  { text: '', className: 'text-terminal' },
+  { text: 'GET /api/v1/aspirasi', className: 'text-terminal-bright' },
+  { text: '200 OK · 128 entri', className: 'text-warm' },
+  { text: '', className: 'text-terminal' },
+  { text: 'ID · TOPIK · STATUS', className: 'text-muted' },
+  { text: 'A-012 · Kebijakan · selesai', className: 'text-terminal' },
+  { text: 'A-013 · Fasilitas · diproses', className: 'text-terminal' },
+  { text: 'A-014 · Kurikulum · baru', className: 'text-terminal' },
 ]
 
 export const CODE_TOTAL = codeLines.reduce((sum, line) => sum + line.text.length, 0)

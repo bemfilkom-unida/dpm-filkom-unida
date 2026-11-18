@@ -21,7 +21,7 @@ export default function AboutPage() {
         <SectionBar
           label="PERAN KAMI"
           meta={
-            <span className="font-mono text-[10px] tracking-[0.6px] text-[#4a5a60]">
+            <span className="font-mono text-[10px] tracking-[0.6px] text-muted">
               04 peran
             </span>
           }
@@ -31,15 +31,15 @@ export default function AboutPage() {
             <div
               key={role}
               data-scroll
-              className="flex items-center justify-between border-b border-[#c5cdd1] py-[14px] transition hover:border-[#2BB3BD]"
+              className="flex items-center justify-between border-b border-border py-[14px] transition hover:border-primary"
             >
               <div className="flex items-center gap-4">
-                <span className="font-mono text-[10px] tracking-[0.6px] text-[#4a5a60]">
+                <span className="font-mono text-[10px] tracking-[0.6px] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[15px] text-[#164653]">{role}</span>
+                <span className="text-[15px] text-heading">{role}</span>
               </div>
-              <ArrowUpRight stroke="#c5cdd1" />
+              <ArrowUpRight stroke="var(--color-border)" />
             </div>
           ))}
         </div>
@@ -49,7 +49,7 @@ export default function AboutPage() {
         <SectionBar
           label="KOMISI"
           meta={
-            <Link to="/komisi" className="text-[11px] text-[#4a5a60] hover:text-[#164653]">
+            <Link to="/komisi" className="text-[11px] text-muted hover:text-heading">
               Lihat detail →
             </Link>
           }
@@ -59,15 +59,15 @@ export default function AboutPage() {
             <div
               key={commission.name}
               data-scroll
-              className="flex flex-col gap-3 rounded-2xl border border-[#c5cdd1] bg-white p-6 transition hover:border-[#2BB3BD]"
+              className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-6 transition hover:border-primary"
             >
-              <span className="font-mono text-[10px] tracking-[1.1px] text-[#E78E3F]">
+              <span className="font-mono text-[10px] tracking-[1.1px] text-warm">
                 {commission.name.toUpperCase()}
               </span>
-              <h3 className="text-[20px] font-medium tracking-[-0.4px] text-[#164653]">
+              <h3 className="text-[20px] font-medium tracking-[-0.4px] text-heading">
                 {commission.name}
               </h3>
-              <p className="m-0 text-[14px] text-[#4a5a60]">{commission.scope}</p>
+              <p className="m-0 text-[14px] text-muted">{commission.scope}</p>
             </div>
           ))}
         </div>

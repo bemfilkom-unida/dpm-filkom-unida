@@ -49,8 +49,8 @@ export function AspirationChatCard() {
                 key={index}
                 className={`bubble-in max-w-[85%] px-3 py-[9px] ${
                   isUser
-                    ? 'self-end border border-[#2BB3BD] bg-[#2BB3BD]'
-                    : 'self-start border border-[#c5cdd1] bg-[#DCE2E6]'
+                    ? 'self-end border border-primary bg-primary'
+                    : 'self-start border border-border bg-bg'
                 }`}
                 style={{
                   borderRadius: isUser ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
@@ -58,7 +58,7 @@ export function AspirationChatCard() {
               >
                 <p
                   className={`m-0 font-mono text-[10.5px] leading-[1.4] ${
-                    isUser ? 'text-[#164653]' : 'text-[#4a5a60]'
+                    isUser ? 'text-heading' : 'text-muted'
                   }`}
                 >
                   {message.text}
@@ -67,7 +67,7 @@ export function AspirationChatCard() {
             )
           })}
         </div>
-        <div className="flex items-center gap-2 rounded-[10px] border border-[#c5cdd1] bg-[#DCE2E6] px-3 py-[9px]">
+        <div className="flex items-center gap-2 rounded-[10px] border border-border bg-bg px-3 py-[9px]">
           <input
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -76,13 +76,13 @@ export function AspirationChatCard() {
             }}
             aria-label="Tulis aspirasi"
             placeholder="Tulis aspirasi…"
-            className="flex-1 bg-transparent font-mono text-[10.5px] text-[#4a5a60] outline-none placeholder:text-[#4a5a60]"
+            className="flex-1 bg-transparent font-mono text-[10.5px] text-muted outline-none placeholder:text-muted"
           />
           <button
             type="button"
             onClick={send}
             aria-label="Kirim aspirasi"
-            className="h-[22px] w-[22px] rounded-full bg-[#2BB3BD] text-[10px] font-bold text-[#0B2E36]"
+            className="h-[22px] w-[22px] rounded-full bg-primary text-[10px] font-bold text-on-accent"
           >
             ↑
           </button>

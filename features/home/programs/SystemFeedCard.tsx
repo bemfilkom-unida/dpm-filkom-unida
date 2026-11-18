@@ -27,12 +27,12 @@ export function SystemFeedCard() {
             return (
               <span key={index} className={line.className}>
                 {line.text === '' ? '\u00A0' : visible}
-                {isActive && <span className="animate-pulse text-[#ff6208]">▌</span>}
+                {isActive && <span className="animate-pulse text-cursor">▌</span>}
               </span>
             )
           })}
           {charCount >= CODE_TOTAL && (
-            <span className="animate-pulse text-[#ff6208]">▌</span>
+            <span className="animate-pulse text-cursor">▌</span>
           )}
         </div>
       </div>

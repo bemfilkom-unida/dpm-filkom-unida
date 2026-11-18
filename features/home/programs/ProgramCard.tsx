@@ -22,23 +22,23 @@ export function ProgramCard({
   return (
     <div
       className={`sticky flex h-[340px] flex-col overflow-hidden rounded-2xl border md:static ${
-        dark ? 'border-[#164653] bg-[#164653]' : 'border-[#c5cdd1] bg-white'
+        dark ? 'border-panel bg-panel' : 'border-border bg-surface'
       } ${className}`}
     >
       {children}
       <div
         className={`flex items-center justify-between border-t px-[18px] py-[13px] ${
-          dark ? 'border-[#164653]' : 'border-[#c5cdd1]'
+          dark ? 'border-panel' : 'border-border'
         }`}
       >
         <span
           className={`font-mono text-[10px] tracking-[1.1px] ${
-            dark ? 'text-[#a0b0b6]' : 'text-[#4a5a60]'
+            dark ? 'text-ink-muted' : 'text-muted'
           }`}
         >
           {label}
         </span>
-        <ArrowUpRight stroke={dark ? '#ffffff' : '#4a5a60'} />
+        <ArrowUpRight stroke={dark ? 'var(--color-on-panel)' : 'var(--color-muted)'} />
       </div>
     </div>
   )

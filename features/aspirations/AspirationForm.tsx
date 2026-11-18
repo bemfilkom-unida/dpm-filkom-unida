@@ -6,9 +6,9 @@ import type { AspirationFormValues } from './model'
 export type FormFeedback = { ok: boolean; text: string }
 
 const INPUT_CLASS =
-  'rounded-xl border border-[#c5cdd1] bg-[#DCE2E6] px-4 py-3 text-[14px] text-[#1E2B30] outline-none focus:border-[#2BB3BD]'
+  'rounded-xl border border-border bg-bg px-4 py-3 text-[14px] text-text outline-none focus:border-primary'
 
-const LABEL_CLASS = 'font-mono text-[10px] tracking-[1.1px] text-[#4a5a60]'
+const LABEL_CLASS = 'font-mono text-[10px] tracking-[1.1px] text-muted'
 
 function Field({
   id,
@@ -110,7 +110,7 @@ export function AspirationForm({
 
       <button
         type="submit"
-        className="self-start rounded-full bg-[#2BB3BD] px-[22px] py-[13px] text-[13px] font-medium text-[#0B2E36]"
+        className="self-start rounded-full bg-primary px-[22px] py-[13px] text-[13px] font-medium text-on-accent"
       >
         Kirim Aduan
       </button>
@@ -120,7 +120,7 @@ export function AspirationForm({
           role="status"
           className={cn(
             'm-0 self-start text-[11px]',
-            feedback.ok ? 'text-[#4a5a60]' : 'text-[#E78E3F]',
+            feedback.ok ? 'text-muted' : 'text-warm',
           )}
         >
           {feedback.text}

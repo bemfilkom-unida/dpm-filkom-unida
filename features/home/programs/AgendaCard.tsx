@@ -23,7 +23,7 @@ export function AgendaCard() {
           {items.map((item, slot) => (
             <div
               key={item.name}
-              className="absolute left-0 right-0 flex h-[58px] items-center gap-[10px] rounded-[9px] border border-[#c5cdd1] bg-[#DCE2E6] px-[10px] will-change-[top] hover:border-[#2BB3BD] hover:bg-white"
+              className="absolute left-0 right-0 flex h-[58px] items-center gap-[10px] rounded-[9px] border border-border bg-bg px-[10px] will-change-[top] hover:border-primary hover:bg-surface"
               style={{
                 top: slot * 66,
                 zIndex: agenda.length - slot,
@@ -31,10 +31,10 @@ export function AgendaCard() {
                   'top 700ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms, background-color 150ms',
               }}
             >
-              <span className="font-mono text-[9.5px] tracking-[0.8px] text-[#4a5a60]">
+              <span className="font-mono text-[9.5px] tracking-[0.8px] text-muted">
                 {item.date}
               </span>
-              <span className="text-[12px] text-[#164653]">{item.name}</span>
+              <span className="text-[12px] text-heading">{item.name}</span>
             </div>
           ))}
         </div>

@@ -164,8 +164,8 @@
 .hero-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.18em;
-  margin-bottom: -0.18em;
+  padding-bottom: 0.35em;
+  margin-bottom: -0.35em;
 }
 .hero-line-inner {
   display: block;

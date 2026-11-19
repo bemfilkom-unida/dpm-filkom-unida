@@ -28,7 +28,7 @@ export default function SiteFooter() {
       <div className="mx-auto flex w-full max-w-[1376px] flex-col gap-10">
         <div className="grid gap-8 md:grid-cols-12 md:gap-8">
           {/* Identitas */}
-          <div className="flex flex-col items-start gap-4 md:col-span-5">
+          <div className="flex flex-col items-center gap-4 text-center md:col-span-5 md:items-start md:text-left">
             <Link
               to="/"
               className="flex items-center gap-[10px] rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-4 focus-visible:ring-offset-ink"
@@ -81,11 +81,11 @@ export default function SiteFooter() {
             className="grid w-full grid-cols-2 gap-x-6 gap-y-8 md:col-span-7 md:grid-cols-2 md:gap-8"
           >
             {groups.map((group) => (
-              <div key={group.title} className="flex flex-col gap-2">
+              <div key={group.title} className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
                 <span className="font-mono text-[10px] uppercase tracking-[1.2px] text-ink-subtle">
                   {group.title}
                 </span>
-                <div className="flex flex-col">
+                <div className="flex flex-col items-center md:items-start">
                   {group.links.map((it) => (
                     <Link key={it.label} to={it.to} className={linkClass}>
                       {it.label}
@@ -98,8 +98,8 @@ export default function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-5 border-t border-ink-border pt-6 md:flex-row md:items-center md:justify-between md:gap-8">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <div className="flex flex-col items-center gap-5 border-t border-ink-border pt-6 md:flex-row md:items-center md:justify-between md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 md:justify-start">
             <span className="text-[11px] text-ink-muted">
               © 2026 DPM FILKOM UNIDA
             </span>
@@ -112,7 +112,7 @@ export default function SiteFooter() {
             </span>
           </div>
 
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center justify-center gap-[8px]">
             <span className="font-mono text-[10px] tracking-[0.6px] text-ink-subtle">
               POWERED BY
             </span>
